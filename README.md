@@ -30,6 +30,15 @@ TheGoodShop é uma loja online de produtos de vestuário.
 
 Acesse o endereço exibido no terminal para visualizar o projeto em modo preview.
 
+> **Nota:** Os produtos não serão exibidos inicialmente, pois é necessário executar o servidor de dados.  
+> Abra um novo terminal e inicie o servidor JSON com o comando abaixo:
+
+```bash
+npx json-server --watch db/dbTeste.json --port 3001
+```
+
+Isso permitirá que o projeto acesse e exiba os produtos corretamente.
+
 ## Licença
 
 Este projeto foi desenvolvido exclusivamente para fins de avaliação técnica. Não há comercialização de produtos reais e as imagens utilizadas são provenientes de bancos de imagens gratuitos (stock images) apenas para fins ilustrativos.

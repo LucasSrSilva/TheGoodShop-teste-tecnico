@@ -105,21 +105,27 @@ const Products: React.FC<ProductsProps> = ({
           />
         </div>
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {paginatedProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            id={String(product.id)}
-            name={product.name}
-            description={product.description}
-            price={Number(product.price)}
-            category="Categoria Exemplo"
-            image={product.image || "https://as1.ftcdn.net/v2/jpg/12/66/64/88/1000_F_1266648896_E5z5wP1QGOyzJtNjaI6KY5wARKsU8HOz.jpg"}
-            rating={product.rating}
-            tags={product.tags || []}
-          />
-        ))}
-      </div>
+      {filteredProducts.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-12">
+          <h2 className="text-xl font-semibold text-gray-400 mb-2">Nenhum produto encontrado</h2>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {paginatedProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              id={String(product.id)}
+              name={product.name}
+              description={product.description}
+              price={Number(product.price)}
+              category="Categoria Exemplo"
+              image={product.image || "https://as1.ftcdn.net/v2/jpg/12/66/64/88/1000_F_1266648896_E5z5wP1QGOyzJtNjaI6KY5wARKsU8HOz.jpg"}
+              rating={product.rating}
+              tags={product.tags || []}
+            />
+          ))}
+        </div>
+      )}
       {totalPages > 1 && (
         <div className="flex justify-center mt-8 space-x-2">
           <button
