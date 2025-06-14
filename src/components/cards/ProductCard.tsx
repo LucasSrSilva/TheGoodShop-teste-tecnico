@@ -12,6 +12,7 @@ type ProductCardProps = {
     tags: string[];
     isCart?: boolean;
     onRemove?: (id: string) => void;
+    quantity?: number;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -24,6 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     tags,
     isCart = false,
     onRemove,
+    quantity,
 }) => {
     const [toast, setToast] = useState<{ message: string; type?: 'success' | 'error' | 'info' | 'warning' } | null>(null);
 
@@ -56,7 +58,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 </div>
             )}
 
-
             <img
                 src={image}
                 alt={name}
@@ -68,7 +69,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
             <div className="font-medium text-lg mb-2">
                 R$ {price.toFixed(2)}
             </div>
-            {!isCart && (
+            {isCart ? (
+                <>
+                    {quantity !== undefined && (
+                        <div className="text-sm text-gray-700 mb-2">
+                            Quantidade: {quantity}
+                        </div>
+                    )}
+                    <button
+                        onClick={handleRemoveFromCart}
+                        className="mt-4 w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition cursor-pointer"
+                    >
+                        Remover do carrinho
+                    </button>
+                </>
+            ) : (
                 <>
                     <div className="text-sm text-gray-600 mb-2">
                         category: {category}
@@ -86,22 +101,13 @@ const ProductCard: React.FC<ProductCardProps> = ({
                             </span>
                         ))}
                     </div>
+                    <button
+                        onClick={handleAddToCart}
+                        className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+                    >
+                        Adicionar ao carrinho
+                    </button>
                 </>
-            )}
-            {isCart ? (
-                <button
-                    onClick={handleRemoveFromCart}
-                    className="mt-4 w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition cursor-pointer"
-                >
-                    Remover do carrinho
-                </button>
-            ) : (
-                <button
-                    onClick={handleAddToCart}
-                    className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
-                >
-                    Adicionar ao carrinho
-                </button>
             )}
         </div>
     );
