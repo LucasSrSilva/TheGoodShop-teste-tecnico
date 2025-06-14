@@ -9,6 +9,8 @@ type ProductCardProps = {
     image: string;
     rating: number;
     tags: string[];
+    isCart?: boolean;
+    onRemove?: (id: string) => void;
 };
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -19,7 +21,24 @@ const ProductCard: React.FC<ProductCardProps> = ({
     image,
     rating,
     tags,
+    isCart = false,
+    onRemove,
 }) => {
+
+    const handleAddToCart = () => {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const product = { id, name, price, category, image, rating, tags };
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+    };
+
+    const handleRemoveFromCart = () => {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        const newCart = cart.filter((item: any) => item.id !== id);
+        localStorage.setItem('cart', JSON.stringify(newCart));
+        if (onRemove) onRemove(id);
+    };
+
     return (
         <div className="flex flex-col justify-between items-center border border-gray-200 rounded-lg p-4 max-w-xs shadow-md bg-white">
             <img
@@ -47,22 +66,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
                     </span>
                 ))}
             </div>
-            <button
-                className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
-                onClick={() => {
-                    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                    const existingItem = cart.find((item: { id: string; quantity: number }) => item.id === id);
-                    if (existingItem) {
-                        existingItem.quantity += 1;
-                    } else {
-                        cart.push({ id, quantity: 1 });
-                    }
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    alert('Produto adicionado ao carrinho!');
-                }}
-            >
-                Adicionar ao carrinho
-            </button>
+            {isCart ? (
+                <button
+                    onClick={handleRemoveFromCart}
+                    className="mt-4 w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition cursor-pointer"
+                >
+                    Remover do carrinho
+                </button>
+            ) : (
+                <button
+                    onClick={handleAddToCart}
+                    className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+                >
+                    Adicionar ao carrinho
+                </button>
+            )}
         </div>
     );
 };

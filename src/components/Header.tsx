@@ -12,7 +12,7 @@ const Header = () => {
 					<a href="/products" className="hover:text-gray-300 transition">Produtos</a>
 					<a href="/about" className="hover:text-gray-300 transition">Sobre</a>
 					<a href="/contact" className="hover:text-gray-300 transition">Contato</a>
-					<button className="ml-4 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition"><i className="bi bi-cart"></i></button>
+					<a href="/cart" className="ml-4 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition"><i className="bi bi-cart"></i></a>
 				</nav>
 				<button
 					className="md:hidden flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white"
@@ -43,7 +43,7 @@ const Header = () => {
 							<a href="/products" className="hover:text-gray-300 transition" onClick={toggleMenu}>Produtos</a>
 							<a href="/about" className="hover:text-gray-300 transition" onClick={toggleMenu}>Sobre</a>
 							<a href="/contact" className="hover:text-gray-300 transition" onClick={toggleMenu}>Contato</a>
-							<button className="mt-4 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition">Carrinho</button>
+							<a href="/cart" className="mt-4 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition"><i className="bi bi-cart"></i> Carrinho</a>
 						</nav>
 					</menu>
 				</div>

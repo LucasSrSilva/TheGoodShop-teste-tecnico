@@ -1,0 +1,10 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Cart from "../../components/Cart";
+---
+
+<BaseLayout>
+  <main>
+    <Cart client:only />
+  </main>
+</BaseLayout>
