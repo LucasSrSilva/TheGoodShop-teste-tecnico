@@ -14,18 +14,18 @@ TheGoodShop é uma loja online de produtos de vestuário.
 1. **Instale as dependências:**
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. **Faça o build do projeto:**
 
    ```bash
-   npm run build
+   pnpm run build
    ```
 
 3. **Inicie o modo preview:**
    ```bash
-   npm run preview
+   pnpm run preview
    ```
 
 Acesse o endereço exibido no terminal para visualizar o projeto em modo preview.
