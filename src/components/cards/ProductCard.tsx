@@ -48,13 +48,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 ))}
             </div>
             <button
-                className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+                className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
                 onClick={() => {
                     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                    if (!cart.includes(id)) {
-                        cart.push(id);
-                        localStorage.setItem('cart', JSON.stringify(cart));
+                    const existingItem = cart.find((item: { id: string; quantity: number }) => item.id === id);
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.push({ id, quantity: 1 });
                     }
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    alert('Produto adicionado ao carrinho!');
                 }}
             >
                 Adicionar ao carrinho

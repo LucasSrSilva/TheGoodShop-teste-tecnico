@@ -40,10 +40,10 @@ const Header = () => {
 							</button>
 						</div>
 						<nav className="flex flex-col space-y-4">
-							<a href="/" className="hover:text-gray-300 transition" onClick={toggleMenu}>Home</a>
-							<a href="/about" className="hover:text-gray-300 transition" onClick={toggleMenu}>About</a>
-							<a href="/contact" className="hover:text-gray-300 transition" onClick={toggleMenu}>Contact</a>
-							<button className="mt-4 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition">Cart</button>
+							<a href="/products" className="hover:text-gray-300 transition" onClick={toggleMenu}>Produtos</a>
+							<a href="/about" className="hover:text-gray-300 transition" onClick={toggleMenu}>Sobre</a>
+							<a href="/contact" className="hover:text-gray-300 transition" onClick={toggleMenu}>Contato</a>
+							<button className="mt-4 px-4 py-2 bg-blue-600 rounded hover:bg-blue-700 transition">Carrinho</button>
 						</nav>
 					</menu>
 				</div>

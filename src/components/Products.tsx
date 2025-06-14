@@ -42,7 +42,7 @@ interface ProductsProps {
   searchFilter?: boolean;
 }
 
-const PRODUCTS_PER_PAGE = 10;
+const PRODUCTS_PER_PAGE = 6;
 
 const Products: React.FC<ProductsProps> = ({
   betterRating = false,
@@ -110,7 +110,7 @@ const Products: React.FC<ProductsProps> = ({
           <h2 className="text-xl font-semibold text-gray-400 mb-2">Nenhum produto encontrado</h2>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 place-items-center">
           {paginatedProducts.map((product) => (
             <ProductCard
               key={product.id}
