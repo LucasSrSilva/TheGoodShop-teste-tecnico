@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Toast from "../../libs/Toast"
 
 type ProductCardProps = {
     id: string;
@@ -24,12 +25,19 @@ const ProductCard: React.FC<ProductCardProps> = ({
     isCart = false,
     onRemove,
 }) => {
+    const [toast, setToast] = useState<{ message: string; type?: 'success' | 'error' | 'info' | 'warning' } | null>(null);
+
+    const showToast = (message: string, type?: 'success' | 'error' | 'info' | 'warning') => {
+        setToast({ message, type });
+        setTimeout(() => setToast(null), 2000);
+    };
 
     const handleAddToCart = () => {
         const cart = JSON.parse(localStorage.getItem('cart') || '[]');
         const product = { id, name, price, category, image, rating, tags };
         cart.push(product);
         localStorage.setItem('cart', JSON.stringify(cart));
+        showToast('Produto adicionado ao carrinho!', 'success');
     };
 
     const handleRemoveFromCart = () => {
@@ -37,10 +45,16 @@ const ProductCard: React.FC<ProductCardProps> = ({
         const newCart = cart.filter((item: any) => item.id !== id);
         localStorage.setItem('cart', JSON.stringify(newCart));
         if (onRemove) onRemove(id);
+        showToast('Produto removido do carrinho!', 'info');
     };
 
     return (
-        <div className="flex flex-col justify-between items-center border border-gray-200 rounded-lg p-4 max-w-xs shadow-md bg-white">
+        <div className="flex flex-col justify-between items-center border border-gray-200 rounded-lg p-4 max-w-xs shadow-md bg-white relative">
+            {toast && (
+                <div style={{ position: 'absolute', top: 10, left: 10, zIndex: 10 }}>
+                    <Toast message={toast.message} type={toast.type} />
+                </div>
+            )}
             <img
                 src={image}
                 alt={name}
