@@ -1,0 +1,10 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Products from "../../components/Products";
+---
+
+<BaseLayout>
+  <main id="products" class="w-full max-w-5xl">
+    <Products client:only title="Todos os produtos" searchFilter />
+  </main>
+</BaseLayout>

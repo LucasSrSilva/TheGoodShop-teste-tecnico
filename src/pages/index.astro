@@ -1,5 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Products from "../components/Products";
 ---
 
-<BaseLayout> oi</BaseLayout>
+<BaseLayout>
+  <div class="flex flex-col items-center gap-6 py-8">
+    <main id="products" class="w-full max-w-5xl">
+      <Products client:only betterRating title="Melhores avaliados" />
+    </main>
+  </div>
+</BaseLayout>
