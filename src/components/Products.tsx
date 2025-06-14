@@ -129,27 +129,27 @@ const Products: React.FC<ProductsProps> = ({
       {totalPages > 1 && (
         <div className="flex justify-center mt-8 space-x-2">
           <button
-            className="px-3 py-1 rounded bg-gray-300 hover:bg-gray-400"
+            className="px-3 py-1 rounded bg-gray-300 hover:bg-gray-400 cursor-pointer"
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
           >
-            Prev
+            <i className="bi bi-arrow-left"></i>
           </button>
           {Array.from({ length: totalPages }, (_, i) => (
             <button
               key={i + 1}
-              className={`px-3 py-1 rounded ${currentPage === i + 1 ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+              className={`px-3 py-1 rounded ${currentPage === i + 1 ? "bg-blue-500 text-white" : "bg-gray-200 cursor-pointer"}`}
               onClick={() => setCurrentPage(i + 1)}
             >
               {i + 1}
             </button>
           ))}
           <button
-            className="px-3 py-1 rounded bg-gray-300 hover:bg-gray-400"
+            className="px-3 py-1 rounded bg-gray-300 hover:bg-gray-400 cursor-pointer"
             onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
           >
-            Next
+            <i className="bi bi-arrow-right"></i>
           </button>
         </div>
       )}
