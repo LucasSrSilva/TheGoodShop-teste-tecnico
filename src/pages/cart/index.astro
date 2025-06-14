@@ -5,6 +5,29 @@ import Cart from "../../components/Cart";
 
 <BaseLayout>
   <main>
+    <div class="flex flex-col md:flex-row items-center justify-between w-full">
+      <h2 class="text-4xl font-bold text-gray-200 py-10">Meu carrinho</h2>
+      <div id="total-price" class="text-3xl font-bold text-gray-400 py-5"></div>
+    </div>
     <Cart client:only />
   </main>
 </BaseLayout>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const totalPriceElement = document.getElementById(
+      "total-price"
+    ) as HTMLDivElement;
+    const cartItemsRaw = localStorage.getItem("cart");
+    const cartItems = cartItemsRaw ? JSON.parse(cartItemsRaw) : [];
+    let totalPrice = 0;
+    if (Array.isArray(cartItems) && cartItems.length > 0) {
+      totalPrice = cartItems.reduce((acc: number, item: any) => {
+        const price = Number(item.price) || 0;
+        const quantity = Number(item.quantity) || 1;
+        return acc + price * quantity;
+      }, 0);
+    }
+
+    totalPriceElement.textContent = `Total: R$ ${totalPrice.toFixed(2)}`;
+  });
+</script>
