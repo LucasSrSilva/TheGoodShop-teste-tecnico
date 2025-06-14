@@ -14,7 +14,6 @@ type ProductCardProps = {
 const ProductCard: React.FC<ProductCardProps> = ({
     id,
     name,
-    description,
     price,
     category,
     image,

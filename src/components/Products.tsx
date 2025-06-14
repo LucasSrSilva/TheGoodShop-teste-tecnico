@@ -42,6 +42,8 @@ interface ProductsProps {
   searchFilter?: boolean;
 }
 
+const PRODUCTS_PER_PAGE = 10;
+
 const Products: React.FC<ProductsProps> = ({
   betterRating = false,
   title = "Produtos",
@@ -49,7 +51,7 @@ const Products: React.FC<ProductsProps> = ({
 }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
     startScreenLoader();
@@ -61,7 +63,7 @@ const Products: React.FC<ProductsProps> = ({
               id: Number(item.id),
               name: item.name,
               description: item.description,
-              image: item.image || "https://via.placeholder.com/150",
+              image: item.image,
               price: item.price,
               tags: item.tags,
               rating: item.rating ?? 4.5,
@@ -76,8 +78,18 @@ const Products: React.FC<ProductsProps> = ({
       });
   }, []);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, betterRating]);
+
   let filteredProducts = filterByBetterRating(products, betterRating);
   filteredProducts = filterBySearch(filteredProducts, search);
+
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * PRODUCTS_PER_PAGE,
+    currentPage * PRODUCTS_PER_PAGE
+  );
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -94,7 +106,7 @@ const Products: React.FC<ProductsProps> = ({
         </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredProducts.map((product) => (
+        {paginatedProducts.map((product) => (
           <ProductCard
             key={product.id}
             id={String(product.id)}
@@ -102,12 +114,39 @@ const Products: React.FC<ProductsProps> = ({
             description={product.description}
             price={Number(product.price)}
             category="Categoria Exemplo"
-            image={product.image || "https://via.placeholder.com/150"}
+            image={product.image || "https://as1.ftcdn.net/v2/jpg/12/66/64/88/1000_F_1266648896_E5z5wP1QGOyzJtNjaI6KY5wARKsU8HOz.jpg"}
             rating={product.rating}
             tags={product.tags || []}
           />
         ))}
       </div>
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-8 space-x-2">
+          <button
+            className="px-3 py-1 rounded bg-gray-300 hover:bg-gray-400"
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i + 1}
+              className={`px-3 py-1 rounded ${currentPage === i + 1 ? "bg-blue-500 text-white" : "bg-gray-200"}`}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            className="px-3 py-1 rounded bg-gray-300 hover:bg-gray-400"
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
